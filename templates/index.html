@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>Python Flask Upload and display image</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />        
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body>
+<p><h1 align="center">Text Extraction from Image</h1></p>
+<div class="container">
+<div class="row">
+   
+    <h2>Select a file to upload</h2>
+
+    <form method="post" action="/api/v2/" enctype="multipart/form-data">
+        <dl>
+            <p>
+                <input type="file" name="file" class="form-control" autocomplete="off" required>
+            </p>
+        </dl>
+        <p>
+            <input type="submit" value="Submit" class="btn btn-info">
+        </p>
+    </form>
+
+    <p>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+    </p>
+    {% if filename %}
+        <div>
+            <img src="{{ url_for('display_image', filename=filename) }}" style="width: 120px">
+        </div>
+    {% endif %}
+
+    {% if extracted_text %}
+    <br>
+    <p> The extracted text from the above image is 🔽 <br>
+     <div style="border: solid black 2px; padding: 20px;">
+            <b> {{ extracted_text }} </b></p>
+        
+            {% else %}
+                The extracted text will be displayed here
+            {% endif %}
+    </div> 
+    
+</div>
+</div>
+</body>
+</html>
